@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chemistry.com / Physics.com — Class 12 Test Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B1330;
+    --navy-2:#111a3d;
+    --gold:#F5C518;
+    --gold-dark:#D8A800;
+    --chem:#1B2A6B;
+    --chem-light:#24399C;
+    --phys:#6E1423;
+    --phys-light:#8C1B2E;
+    --paper:#F4F5F7;
+    --ink:#14172B;
+    --muted:#6B7280;
+    --danger:#B91C1C;
+    --ok:#15803D;
+    --radius:18px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    -webkit-tap-highlight-color:transparent;
+  }
+  h1,h2,h3,.display{font-family:'Poppins',sans-serif;}
+  #app{min-height:100vh;display:flex;flex-direction:column;}
+  button{font-family:inherit;cursor:pointer;}
+  input,textarea{font-family:inherit;}
+
+  /* ---------- Landing ---------- */
+  .hero{
+    min-height:100vh;
+    background:
+      radial-gradient(circle at 20% 15%, rgba(245,197,24,0.10), transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(36,57,156,0.25), transparent 45%),
+      linear-gradient(180deg,var(--navy) 0%,var(--navy-2) 100%);
+    color:#fff;
+    display:flex;flex-direction:column;align-items:center;
+    padding:56px 24px 36px;
+    text-align:center;
+  }
+  .brand-mark{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:6px;}
+  .mark-ring{width:54px;height:54px;border-radius:50%;border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--gold);font-size:22px;font-family:'Poppins',sans-serif;flex-shrink:0;position:relative;}
+  .mark-ring::after{content:'';position:absolute;inset:-8px;border:1px solid rgba(245,197,24,0.35);border-radius:50%;animation:spin 14s linear infinite;}
+  .mark-diamond{width:52px;height:52px;background:var(--gold);transform:rotate(45deg);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .mark-diamond span{transform:rotate(-45deg);font-weight:800;color:var(--navy);font-size:20px;font-family:'Poppins',sans-serif;}
+  @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+  .brand-line{font-size:30px;font-weight:800;letter-spacing:-0.5px;}
+  .brand-line b{color:var(--gold);}
+  .tagline{color:#B9C0D9;margin-top:14px;font-size:15px;letter-spacing:0.4px;}
+  .landing-actions{width:100%;max-width:380px;margin-top:44px;display:flex;flex-direction:column;gap:14px;}
+  .btn{
+    border:none;border-radius:14px;padding:16px 20px;font-size:16px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;gap:10px;transition:transform .12s ease, opacity .12s ease;
+  }
+  .btn:active{transform:scale(0.98);}
+  .btn:disabled{opacity:0.6;}
+  .btn-gold{background:var(--gold);color:var(--navy);}
+  .btn-gold:hover{background:var(--gold-dark);}
+  .btn-outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,0.5);}
+  .btn-outline:hover{border-color:#fff;}
+  .btn-block{width:100%;}
+  .link-btn{background:none;border:none;color:#8792B5;font-size:14px;margin-top:30px;display:flex;align-items:center;gap:6px;}
+  .link-btn:hover{color:#fff;}
+
+  /* ---------- Auth cards ---------- */
+  .auth-wrap{
+    min-height:100vh;background:linear-gradient(180deg,var(--navy) 0%,var(--navy-2) 220px, var(--paper) 220px);
+    display:flex;flex-direction:column;align-items:center;padding:40px 20px;
+  }
+  .auth-card{
+    width:100%;max-width:400px;background:#fff;border-radius:20px;padding:32px 26px;
+    box-shadow:0 20px 40px rgba(11,19,48,0.18);margin-top:20px;
+  }
+  .auth-title{font-size:22px;font-weight:800;margin:0 0 4px;}
+  .auth-sub{color:var(--muted);font-size:14px;margin:0 0 22px;}
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px;}
+  .field input{
+    width:100%;padding:13px 14px;border-radius:12px;border:1.5px solid #E3E5EC;font-size:15px;outline:none;
+    transition:border-color .12s ease;
+  }
+  .field input:focus{border-color:var(--chem-light);}
+  .msg{border-radius:10px;padding:10px 12px;font-size:13.5px;margin-bottom:16px;font-weight:600;}
+  .msg-error{background:#FEE2E2;color:var(--danger);}
+  .msg-ok{background:#DCFCE7;color:var(--ok);}
+  .auth-foot{text-align:center;margin-top:18px;font-size:13.5px;color:var(--muted);}
+  .auth-foot a{color:var(--chem-light);font-weight:700;text-decoration:none;cursor:pointer;}
+  .back-top{align-self:flex-start;color:#B9C0D9;background:none;border:none;font-size:14px;display:flex;align-items:center;gap:6px;margin-bottom:8px;}
+
+  /* ---------- Dashboard ---------- */
+  .dash-header{background:linear-gradient(180deg,var(--navy),var(--navy-2));color:#fff;padding:40px 24px 60px;text-align:center;}
+  .dash-welcome{color:#9AA3C4;font-size:14px;}
+  .dash-name{font-size:30px;font-weight:800;margin:4px 0;}
+  .dash-roll{color:#9AA3C4;font-size:13.5px;}
+  .dash-body{padding:0 20px;margin-top:-36px;display:flex;flex-direction:column;gap:16px;max-width:520px;width:100%;align-self:center;}
+  .subject-card{
+    border-radius:20px;padding:26px 24px;color:#fff;position:relative;overflow:hidden;
+    box-shadow:0 16px 30px rgba(0,0,0,0.15);
+  }
+  .subject-card.chem{background:linear-gradient(135deg,var(--chem),var(--chem-light));}
+  .subject-card.phys{background:linear-gradient(135deg,var(--phys),var(--phys-light));}
+  .subject-card .sicon{font-size:26px;margin-bottom:14px;display:block;}
+  .subject-card h3{margin:0 0 4px;font-size:21px;}
+  .subject-card p{margin:0;font-size:13.5px;opacity:0.85;}
+  .subject-card button{margin-top:16px;background:rgba(255,255,255,0.16);border:1px solid rgba(255,255,255,0.35);color:#fff;padding:9px 16px;border-radius:10px;font-weight:700;font-size:13.5px;}
+  .subject-card button:hover{background:rgba(255,255,255,0.26);}
+  .dash-actions{display:flex;justify-content:center;gap:22px;margin:34px 0 40px;}
+  .ghost-link{background:none;border:none;color:var(--muted);font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;}
+  .ghost-link:hover{color:var(--ink);}
+
+  /* ---------- Not ready ---------- */
+  .notready-wrap{min-height:100vh;background:var(--paper);display:flex;flex-direction:column;align-items:center;}
+  .notready-card{background:#fff;border-radius:20px;max-width:420px;width:calc(100% - 40px);margin:60px 20px 0;padding:38px 26px;text-align:center;box-shadow:0 16px 34px rgba(0,0,0,0.08);}
+  .notready-icon{font-size:38px;margin-bottom:16px;}
+  .notready-card h2{font-size:20px;margin:0 0 12px;}
+  .notready-card p{color:var(--muted);font-size:14.5px;line-height:1.6;}
+
+  /* ---------- Test screen ---------- */
+  .test-header{padding:22px 24px 30px;color:#fff;}
+  .test-header.chem{background:linear-gradient(135deg,var(--chem),var(--chem-light));}
+  .test-header.phys{background:linear-gradient(135deg,var(--phys),var(--phys-light));}
+  .test-header-row{display:flex;align-items:center;justify-content:space-between;}
+  .test-header-left{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:0.5px;font-size:14px;text-transform:uppercase;opacity:0.9;}
+  .qcounter{background:rgba(255,255,255,0.18);border-radius:20px;padding:6px 14px;font-weight:700;font-size:13.5px;}
+  .test-body-wrap{padding:0 18px;margin-top:-18px;display:flex;flex-direction:column;align-items:center;}
+  .test-card{background:#fff;border-radius:20px;padding:26px 22px 30px;max-width:520px;width:100%;box-shadow:0 16px 34px rgba(0,0,0,0.1);}
+  .test-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+  .test-student{color:var(--muted);font-size:14px;}
+  .test-timer{display:flex;align-items:center;gap:6px;font-weight:800;font-size:16px;}
+  .test-timer.warn{color:var(--danger);}
+  .progress-track{height:6px;background:#EAECF1;border-radius:6px;overflow:hidden;margin-bottom:22px;}
+  .progress-fill{height:100%;border-radius:6px;transition:width .25s ease;}
+  .progress-fill.chem{background:var(--chem-light);}
+  .progress-fill.phys{background:var(--phys-light);}
+  .qtext{font-size:19px;font-weight:700;line-height:1.5;margin-bottom:20px;}
+  .opt{
+    display:block;width:100%;text-align:left;border:1.5px solid #E3E5EC;border-radius:14px;
+    padding:15px 16px;margin-bottom:12px;font-size:15px;background:#fff;transition:border-color .12s, background .12s;
+  }
+  .opt:hover{border-color:#C7CBDA;}
+  .opt.selected.chem{border-color:var(--chem-light);background:#EEF1FC;}
+  .opt.selected.phys{border-color:var(--phys-light);background:#FBEDEF;}
+  .test-nav{display:flex;justify-content:space-between;gap:12px;margin-top:12px;}
+  .btn-nav{flex:1;border-radius:12px;padding:14px;font-weight:700;font-size:15px;border:1.5px solid #E3E5EC;background:#fff;color:var(--muted);}
+  .btn-nav:disabled{opacity:0.45;}
+  .btn-nav.primary.chem{background:var(--chem-light);color:#fff;border:none;}
+  .btn-nav.primary.phys{background:var(--phys-light);color:#fff;border:none;}
+
+  /* ---------- Result ---------- */
+  .result-wrap{min-height:100vh;background:var(--paper);display:flex;flex-direction:column;align-items:center;padding:50px 20px;}
+  .result-card{background:#fff;border-radius:22px;max-width:420px;width:100%;padding:38px 28px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.1);}
+  .score-ring{width:130px;height:130px;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#fff;}
+  .score-ring b{font-size:32px;}
+  .score-ring span{font-size:12px;opacity:0.85;}
+  .result-card h2{margin:0 0 6px;font-size:20px;}
+  .result-stats{display:flex;justify-content:center;gap:26px;margin:22px 0;}
+  .result-stat b{display:block;font-size:20px;}
+  .result-stat span{font-size:12px;color:var(--muted);}
+
+  /* ---------- Admin ---------- */
+  .admin-header{background:var(--navy);color:#fff;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;}
+  .admin-header h2{margin:0;font-size:19px;display:flex;align-items:center;gap:8px;}
+  .admin-body{padding:20px;max-width:640px;width:100%;align-self:center;}
+  .tabrow{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+  .tab{padding:10px 18px;border-radius:20px;border:1.5px solid #E3E5EC;background:#fff;font-weight:700;font-size:14px;color:var(--muted);}
+  .tab.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+  .tab.subj-active-phys{background:var(--phys-light);border-color:var(--phys-light);color:#fff;}
+  .tab.subj-active-chem{background:var(--chem-light);border-color:var(--chem-light);color:#fff;}
+  .panel{background:#fff;border-radius:18px;padding:22px;box-shadow:0 10px 24px rgba(0,0,0,0.06);margin-bottom:20px;}
+  .panel h3{margin:0 0 14px;font-size:16px;}
+  textarea.bulk{width:100%;min-height:180px;border:1.5px solid #E3E5EC;border-radius:12px;padding:14px;font-size:13.5px;font-family:'Inter',monospace;resize:vertical;outline:none;line-height:1.6;}
+  textarea.bulk:focus{border-color:var(--chem-light);}
+  .hint{font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.6;background:#F7F8FA;border-radius:10px;padding:12px 14px;}
+  .hint code{background:#EAECF1;padding:1px 5px;border-radius:4px;}
+  .qlist-item{border:1px solid #EAECF1;border-radius:12px;padding:14px 16px;margin-bottom:10px;display:flex;justify-content:space-between;gap:10px;align-items:flex-start;}
+  .qlist-item .qnum{font-weight:700;font-size:14px;}
+  .qlist-item .correct{color:var(--ok);font-size:12.5px;margin-top:4px;}
+  .del-btn{background:none;border:none;color:#C4C8D4;font-size:18px;flex-shrink:0;}
+  .del-btn:hover{color:var(--danger);}
+  .saved-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+  .saved-count{font-weight:700;font-size:14.5px;}
+  .clear-all{background:none;border:none;color:var(--danger);font-size:13.5px;font-weight:700;}
+  .result-row{border:1px solid #EAECF1;border-radius:12px;padding:13px 16px;margin-bottom:9px;display:flex;justify-content:space-between;align-items:center;}
+  .result-row .rname{font-weight:700;font-size:14.5px;}
+  .result-row .rmeta{font-size:12.5px;color:var(--muted);}
+  .result-row .rscore{font-weight:800;font-size:16px;}
+  .empty-note{color:var(--muted);font-size:14px;text-align:center;padding:30px 10px;}
+  .admin-login-wrap{min-height:100vh;background:var(--navy);display:flex;align-items:center;justify-content:center;padding:20px;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+/* ===================== API helpers ===================== */
+const API = '';
+
+async function apiGet(url){
+  const r = await fetch(API + url);
+  const data = await r.json().catch(() => ({}));
+  if(!r.ok) throw new Error(data.error || 'Server error.');
+  return data;
+}
+async function apiPost(url, body){
+  const r = await fetch(API + url, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body||{}) });
+  const data = await r.json().catch(() => ({}));
+  if(!r.ok) throw new Error(data.error || 'Server error.');
+  return data;
+}
+async function apiDelete(url, body){
+  const r = await fetch(API + url, { method:'DELETE', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body||{}) });
+  const data = await r.json().catch(() => ({}));
+  if(!r.ok) throw new Error(data.error || 'Server error.');
+  return data;
+}
+
+/* ===================== State ===================== */
+let state = {
+  screen: 'landing',
+  user: null,
+  error: '',
+  info: '',
+  subject: null,
+  questions: [],
+  idx: 0,
+  selected: [],
+  timeLeft: [],
+  timerId: null,
+  score: 0,
+  adminPasscode: null,   // stored in memory after successful gate login
+  adminTab: 'manage',
+  adminSubject: 'physics',
+  adminQuestions: [],
+  results: [],
+  busy: false,
+};
+
+const app = document.getElementById('app');
+
+function clearTimer(){
+  if(state.timerId){ clearInterval(state.timerId); state.timerId = null; }
+}
+function esc(s){
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ===================== Render dispatcher ===================== */
+function render(){
+  let html = '';
+  switch(state.screen){
+    case 'landing': html = screenLanding(); break;
+    case 'signup': html = screenSignup(); break;
+    case 'login': html = screenLogin(); break;
+    case 'dashboard': html = screenDashboard(); break;
+    case 'notready': html = screenNotReady(); break;
+    case 'test': html = screenTest(); break;
+    case 'result': html = screenResult(); break;
+    case 'adminGate': html = screenAdminGate(); break;
+    case 'admin': html = screenAdmin(); break;
+  }
+  app.innerHTML = html;
+  bindEvents();
+}
+
+/* ===================== Landing ===================== */
+function screenLanding(){
+  return `
+  <div class="hero">
+    <div class="brand-mark">
+      <div class="mark-ring">C</div>
+      <div class="brand-line">hemistry<b>.com</b></div>
+    </div>
+    <div class="brand-mark" style="margin-top:6px;">
+      <div class="mark-diamond"><span>P</span></div>
+      <div class="brand-line">hysics<b>.com</b></div>
+    </div>
+    <div class="tagline">Class 12 Test Portal</div>
+    <div class="landing-actions">
+      <button class="btn btn-gold btn-block" id="goSignup">＋ Sign Up</button>
+      <button class="btn btn-outline btn-block" id="goLogin">→ Login</button>
+    </div>
+    <button class="link-btn" id="goAdmin">⚙ Admin</button>
+  </div>`;
+}
+
+/* ===================== Sign Up ===================== */
+function screenSignup(){
+  return `
+  <div class="auth-wrap">
+    <button class="back-top" id="backLanding">← Back</button>
+    <div class="auth-card">
+      <h2 class="auth-title">Create your account</h2>
+      <p class="auth-sub">Sign up ek hi baar hota hai — uske baad har baar login karke test dena hoga.</p>
+      ${state.error ? `<div class="msg msg-error">${esc(state.error)}</div>` : ''}
+      <div class="field">
+        <label>Full name</label>
+        <input id="suName" type="text" placeholder="Jaise: Sweta Kumari" />
+      </div>
+      <div class="field">
+        <label>Roll number</label>
+        <input id="suRoll" type="text" placeholder="Jaise: 01" />
+      </div>
+      <button class="btn btn-gold btn-block" style="color:var(--navy)" id="doSignup" ${state.busy?'disabled':''}>${state.busy ? 'Please wait...' : '＋ Sign Up'}</button>
+      <div class="auth-foot">Pehle se account hai? <a id="toLogin">Login karein</a></div>
+    </div>
+  </div>`;
+}
+
+/* ===================== Login ===================== */
+function screenLogin(){
+  return `
+  <div class="auth-wrap">
+    <button class="back-top" id="backLanding">← Back</button>
+    <div class="auth-card">
+      <h2 class="auth-title">Login</h2>
+      <p class="auth-sub">Test dene ke liye apna naam aur roll number daalein.</p>
+      ${state.error ? `<div class="msg msg-error">${esc(state.error)}</div>` : ''}
+      ${state.info ? `<div class="msg msg-ok">${esc(state.info)}</div>` : ''}
+      <div class="field">
+        <label>Full name</label>
+        <input id="liName" type="text" placeholder="Jaise: Sweta Kumari" />
+      </div>
+      <div class="field">
+        <label>Roll number</label>
+        <input id="liRoll" type="text" placeholder="Jaise: 01" />
+      </div>
+      <button class="btn btn-gold btn-block" style="color:var(--navy)" id="doLogin" ${state.busy?'disabled':''}>${state.busy ? 'Please wait...' : '→ Login'}</button>
+      <div class="auth-foot">Naya account banana hai? <a id="toSignup">Sign up karein</a></div>
+    </div>
+  </div>`;
+}
+
+/* ===================== Dashboard ===================== */
+function screenDashboard(){
+  const u = state.user;
+  return `
+  <div style="display:flex;flex-direction:column;min-height:100vh;">
+    <div class="dash-header">
+      <div class="dash-welcome">Welcome,</div>
+      <div class="dash-name">${esc(u.name)}</div>
+      <div class="dash-roll">Roll No. ${esc(u.roll)}</div>
+    </div>
+    <div class="dash-body">
+      <div class="subject-card chem">
+        <span class="sicon">🧪</span>
+        <h3>Chemistry Test</h3>
+        <p id="chemMeta">Loading...</p>
+        <button data-subject="chemistry">Start Test →</button>
+      </div>
+      <div class="subject-card phys">
+        <span class="sicon">⚛️</span>
+        <h3>Physics Test</h3>
+        <p id="physMeta">Loading...</p>
+        <button data-subject="physics">Start Test →</button>
+      </div>
+    </div>
+    <div class="dash-actions">
+      <button class="ghost-link" id="doLogout">⇥ Logout</button>
+    </div>
+  </div>`;
+}
+
+async function fillDashboardMeta(){
+  try{
+    const [chem, phys] = await Promise.all([apiGet('/api/questions/chemistry'), apiGet('/api/questions/physics')]);
+    const chemMeta = document.getElementById('chemMeta');
+    const physMeta = document.getElementById('physMeta');
+    if(chemMeta) chemMeta.textContent = chem.length + ' questions · 30s each';
+    if(physMeta) physMeta.textContent = phys.length + ' questions · 30s each';
+  }catch(e){
+    const chemMeta = document.getElementById('chemMeta');
+    const physMeta = document.getElementById('physMeta');
+    if(chemMeta) chemMeta.textContent = 'Could not load';
+    if(physMeta) physMeta.textContent = 'Could not load';
+  }
+}
+
+/* ===================== Not ready ===================== */
+function screenNotReady(){
+  const label = state.subject === 'physics' ? 'Physics' : 'Chemistry';
+  return `
+  <div class="notready-wrap">
+    <div class="notready-card">
+      <div class="notready-icon">⏰</div>
+      <h2>Test abhi taiyaar nahi hai</h2>
+      <p>${label} ke liye abhi tak koi bhi question upload nahi hua hai.<br><br>
+      Jab tak teacher question upload nahi karte, tab tak test shuru nahi hoga. Kripya thodi der intezaar karein.</p>
+      <button class="btn btn-gold btn-block" style="margin-top:22px;color:var(--navy)" id="backDash">Dashboard par wapas jaayein</button>
+    </div>
+  </div>`;
+}
+
+/* ===================== Test ===================== */
+function screenTest(){
+  const subj = state.subject;
+  const cls = subj === 'physics' ? 'phys' : 'chem';
+  const q = state.questions[state.idx];
+  const total = state.questions.length;
+  const t = state.timeLeft[state.idx];
+  const pct = Math.round((state.idx / total) * 100);
+  const label = subj === 'physics' ? 'PHYSICS TEST' : 'CHEMISTRY TEST';
+  const brandIcon = subj === 'physics' ? '⚛️' : '🧪';
+  const isLast = state.idx === total - 1;
+
+  const optionsHtml = q.options.map((opt, i) => `
+    <button class="opt ${state.selected[state.idx] === i ? 'selected '+cls : ''}" data-opt="${i}">${esc(opt)}</button>
+  `).join('');
+
+  return `
+  <div class="test-header ${cls}">
+    <div class="test-header-row">
+      <div class="test-header-left">${brandIcon} ${label}</div>
+      <div class="qcounter">Q ${state.idx+1} / ${total}</div>
+    </div>
+  </div>
+  <div class="test-body-wrap">
+    <div class="test-card">
+      <div class="test-meta">
+        <div class="test-student">${esc(state.user.name)} · Roll ${esc(state.user.roll)}</div>
+        <div class="test-timer ${t <= 10 ? 'warn' : ''}">⏱ ${t}s</div>
+      </div>
+      <div class="progress-track"><div class="progress-fill ${cls}" style="width:${pct}%"></div></div>
+      <div class="qtext">Q: ${esc(q.text)}</div>
+      ${optionsHtml}
+      <div class="test-nav">
+        <button class="btn-nav" id="btnBack" ${state.idx === 0 ? 'disabled' : ''}>← Back</button>
+        <button class="btn-nav primary ${cls}" id="btnNext">${isLast ? 'Submit Test' : 'Confirm & Next'}</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function startTimerForCurrent(){
+  clearTimer();
+  state.timerId = setInterval(() => {
+    state.timeLeft[state.idx] -= 1;
+    if(state.timeLeft[state.idx] <= 0){
+      state.timeLeft[state.idx] = 0;
+      clearTimer();
+      goNextQuestion(true);
+      return;
+    }
+    updateTimerDisplay();
+  }, 1000);
+}
+function updateTimerDisplay(){
+  const el = document.querySelector('.test-timer');
+  if(el){
+    const t = state.timeLeft[state.idx];
+    el.textContent = '⏱ ' + t + 's';
+    el.classList.toggle('warn', t <= 10);
+  }
+}
+async function goNextQuestion(){
+  clearTimer();
+  const isLast = state.idx === state.questions.length - 1;
+  if(isLast){ await submitTest(); return; }
+  state.idx += 1;
+  render();
+  startTimerForCurrent();
+}
+function goBackQuestion(){
+  clearTimer();
+  if(state.idx === 0) return;
+  state.idx -= 1;
+  render();
+  startTimerForCurrent();
+}
+async function submitTest(){
+  clearTimer();
+  let score = 0;
+  state.questions.forEach((q, i) => { if(state.selected[i] === q.correctIndex) score++; });
+  state.score = score;
+  try{
+    await apiPost('/api/results', {
+      roll: state.user.roll, name: state.user.name, subject: state.subject,
+      score: score, total: state.questions.length,
+    });
+  }catch(e){ console.error('Could not save result', e); }
+  state.screen = 'result';
+  render();
+}
+
+/* ===================== Result ===================== */
+function screenResult(){
+  const bg = state.subject === 'physics' ? 'linear-gradient(135deg,var(--phys),var(--phys-light))' : 'linear-gradient(135deg,var(--chem),var(--chem-light))';
+  const pct = Math.round((state.score / state.questions.length) * 100);
+  return `
+  <div class="result-wrap">
+    <div class="result-card">
+      <div class="score-ring" style="background:${bg}">
+        <b>${pct}%</b>
+        <span>SCORE</span>
+      </div>
+      <h2>Test complete, ${esc(state.user.name)}!</h2>
+      <p style="color:var(--muted);font-size:14px;">${state.subject === 'physics' ? 'Physics' : 'Chemistry'} Test ka result</p>
+      <div class="result-stats">
+        <div class="result-stat"><b style="color:var(--ok)">${state.score}</b><span>Correct</span></div>
+        <div class="result-stat"><b style="color:var(--danger)">${state.questions.length - state.score}</b><span>Wrong</span></div>
+        <div class="result-stat"><b>${state.questions.length}</b><span>Total</span></div>
+      </div>
+      <button class="btn btn-gold btn-block" style="color:var(--navy)" id="backDash2">Dashboard par wapas jaayein</button>
+    </div>
+  </div>`;
+}
+
+/* ===================== Admin gate ===================== */
+function screenAdminGate(){
+  return `
+  <div class="admin-login-wrap">
+    <div class="auth-card" style="max-width:360px;">
+      <h2 class="auth-title">🛡 Admin Access</h2>
+      <p class="auth-sub">Passcode daalein.</p>
+      ${state.error ? `<div class="msg msg-error">${esc(state.error)}</div>` : ''}
+      <div class="field">
+        <label>Passcode</label>
+        <input id="adminPass" type="password" placeholder="••••••••" />
+      </div>
+      <button class="btn btn-gold btn-block" style="color:var(--navy)" id="doAdminLogin" ${state.busy?'disabled':''}>${state.busy ? 'Please wait...' : 'Enter'}</button>
+      <div class="auth-foot"><a id="backLanding2">← Back to home</a></div>
+    </div>
+  </div>`;
+}
+
+/* ===================== Admin panel ===================== */
+function screenAdmin(){
+  const subj = state.adminSubject;
+
+  let body = '';
+  if(state.adminTab === 'manage'){
+    body = `
+    <div class="panel">
+      <h3>Bulk add ${subj} questions</h3>
+      ${state.error ? `<div class="msg msg-error">${esc(state.error)}</div>` : ''}
+      ${state.info ? `<div class="msg msg-ok">${esc(state.info)}</div>` : ''}
+      <textarea class="bulk" id="bulkText" placeholder="Neeche diye gaye format mein questions paste karein..."></textarea>
+      <div class="hint">
+        Har question ke liye <b>6 lines</b> use karein, aur har question ke beech ek <b>khaali line</b> chhodein:<br>
+        <code>Question text</code><br>
+        <code>Option 1</code><br>
+        <code>Option 2</code><br>
+        <code>Option 3</code><br>
+        <code>Option 4</code><br>
+        <code>Correct option ka number (1, 2, 3 ya 4)</code>
+      </div>
+      <button class="btn btn-gold btn-block" style="color:var(--navy);margin-top:16px;" id="doBulkAdd" ${state.busy?'disabled':''}>${state.busy ? 'Adding...' : '＋ Add Questions'}</button>
+    </div>
+    <div class="panel">
+      <div class="saved-row">
+        <div class="saved-count">${state.adminQuestions.length} question(s) saved</div>
+        ${state.adminQuestions.length ? `<button class="clear-all" id="clearAllQ">🗑 Clear all</button>` : ''}
+      </div>
+      ${state.adminQuestions.length === 0 ? `<div class="empty-note">Abhi koi question upload nahi hua.</div>` :
+        state.adminQuestions.map((q, i) => `
+          <div class="qlist-item">
+            <div>
+              <div class="qnum">${i+1}. ${esc(q.text)}</div>
+              <div class="correct">Correct: ${esc(q.options[q.correctIndex])}</div>
+            </div>
+            <button class="del-btn" data-del="${q.id}">🗑</button>
+          </div>
+        `).join('')
+      }
+    </div>`;
+  } else {
+    const subjResults = state.results.filter(r => r.subject === subj).sort((a,b) => b.score - a.score);
+    body = `
+    <div class="panel">
+      <h3>${subj[0].toUpperCase()+subj.slice(1)} results</h3>
+      ${subjResults.length === 0 ? `<div class="empty-note">Abhi tak koi result nahi hai.</div>` :
+        subjResults.map(r => `
+          <div class="result-row">
+            <div>
+              <div class="rname">${esc(r.name)} · Roll ${esc(r.roll)}</div>
+              <div class="rmeta">${new Date(r.timestamp).toLocaleString()}</div>
+            </div>
+            <div class="rscore">${r.score}/${r.total}</div>
+          </div>
+        `).join('')
+      }
+    </div>`;
+  }
+
+  return `
+  <div style="min-height:100vh;background:var(--paper);display:flex;flex-direction:column;align-items:center;">
+    <div class="admin-header" style="width:100%;">
+      <h2>🛡 Admin Panel</h2>
+      <button class="ghost-link" style="color:#fff;" id="adminExit">← Exit</button>
+    </div>
+    <div class="admin-body">
+      <div class="tabrow">
+        <button class="tab ${state.adminTab === 'manage' ? 'active' : ''}" id="tabManage">Manage Questions</button>
+        <button class="tab ${state.adminTab === 'results' ? 'active' : ''}" id="tabResults">View Results</button>
+      </div>
+      <div class="tabrow">
+        <button class="tab ${subj === 'physics' ? 'subj-active-phys' : ''}" id="subjPhysics">Physics</button>
+        <button class="tab ${subj === 'chemistry' ? 'subj-active-chem' : ''}" id="subjChemistry">Chemistry</button>
+      </div>
+      ${body}
+    </div>
+  </div>`;
+}
+
+/* ===================== Bulk parse ===================== */
+function parseBulkQuestions(raw){
+  const blocks = raw.split(/\n\s*\n/).map(b => b.trim()).filter(Boolean);
+  const parsed = [];
+  const errors = [];
+  blocks.forEach((block, bi) => {
+    const lines = block.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+    if(lines.length < 6){
+      errors.push(`Block ${bi+1}: kam se kam 6 lines chahiye (question + 4 options + correct number).`);
+      return;
+    }
+    const [text, o1, o2, o3, o4, correctRaw] = lines;
+    const correctNum = parseInt(correctRaw, 10);
+    if(!(correctNum >= 1 && correctNum <= 4)){
+      errors.push(`Block ${bi+1}: correct option number 1-4 ke beech hona chahiye.`);
+      return;
+    }
+    parsed.push({ text, options: [o1, o2, o3, o4], correctIndex: correctNum - 1 });
+  });
+  return { parsed, errors };
+}
+
+/* ===================== Event binding ===================== */
+function bindEvents(){
+  const $ = id => document.getElementById(id);
+
+  if($('goSignup')) $('goSignup').onclick = () => { state.screen='signup'; state.error=''; render(); };
+  if($('goLogin')) $('goLogin').onclick = () => { state.screen='login'; state.error=''; state.info=''; render(); };
+  if($('goAdmin')) $('goAdmin').onclick = () => { state.screen='adminGate'; state.error=''; render(); };
+  if($('backLanding')) $('backLanding').onclick = () => { state.screen='landing'; state.error=''; render(); };
+  if($('backLanding2')) $('backLanding2').onclick = () => { state.screen='landing'; state.error=''; render(); };
+
+  if($('toLogin')) $('toLogin').onclick = () => { state.screen='login'; state.error=''; state.info=''; render(); };
+  if($('doSignup')) $('doSignup').onclick = async () => {
+    const name = $('suName').value.trim();
+    const roll = $('suRoll').value.trim();
+    if(!name || !roll){ state.error = 'Naam aur roll number dono bharna zaroori hai.'; render(); return; }
+    state.busy = true; render();
+    try{
+      await apiPost('/api/signup', { name, roll });
+      state.screen = 'login';
+      state.error = '';
+      state.info = 'Sign-up successful! Ab login karein.';
+    }catch(e){
+      state.error = e.message;
+    }
+    state.busy = false;
+    render();
+  };
+
+  if($('toSignup')) $('toSignup').onclick = () => { state.screen='signup'; state.error=''; state.info=''; render(); };
+  if($('doLogin')) $('doLogin').onclick = async () => {
+    const name = $('liName').value.trim();
+    const roll = $('liRoll').value.trim();
+    if(!name || !roll){ state.error = 'Naam aur roll number dono bharna zaroori hai.'; state.info=''; render(); return; }
+    state.busy = true; render();
+    try{
+      const data = await apiPost('/api/login', { name, roll });
+      state.user = data.user;
+      state.error = '';
+      state.info = '';
+      state.screen = 'dashboard';
+      state.busy = false;
+      render();
+      fillDashboardMeta();
+      return;
+    }catch(e){
+      state.error = e.message;
+      state.info = '';
+    }
+    state.busy = false;
+    render();
+  };
+
+  document.querySelectorAll('[data-subject]').forEach(btn => {
+    btn.onclick = async () => {
+      const subject = btn.getAttribute('data-subject');
+      try{
+        const qs = await apiGet('/api/questions/' + subject);
+        if(qs.length === 0){
+          state.subject = subject;
+          state.screen = 'notready';
+          render();
+          return;
+        }
+        state.subject = subject;
+        state.questions = qs;
+        state.idx = 0;
+        state.selected = new Array(qs.length).fill(null);
+        state.timeLeft = new Array(qs.length).fill(30);
+        state.screen = 'test';
+        render();
+        startTimerForCurrent();
+      }catch(e){
+        alert('Questions load nahi ho paaye: ' + e.message);
+      }
+    };
+  });
+  if($('doLogout')) $('doLogout').onclick = () => { state.user=null; state.screen='landing'; render(); };
+  if($('backDash')) $('backDash').onclick = () => { state.screen='dashboard'; render(); fillDashboardMeta(); };
+  if($('backDash2')) $('backDash2').onclick = () => { state.screen='dashboard'; render(); fillDashboardMeta(); };
+
+  document.querySelectorAll('[data-opt]').forEach(btn => {
+    btn.onclick = () => {
+      const i = parseInt(btn.getAttribute('data-opt'), 10);
+      state.selected[state.idx] = i;
+      render();
+    };
+  });
+  if($('btnNext')) $('btnNext').onclick = () => goNextQuestion();
+  if($('btnBack')) $('btnBack').onclick = () => goBackQuestion();
+
+  if($('doAdminLogin')) $('doAdminLogin').onclick = async () => {
+    const pass = $('adminPass').value;
+    state.busy = true; render();
+    try{
+      await apiPost('/api/admin/verify', { passcode: pass });
+      state.adminPasscode = pass;
+      state.error = '';
+      state.screen = 'admin';
+      state.busy = false;
+      const [qs, results] = await Promise.all([apiGet('/api/questions/' + state.adminSubject), apiGet('/api/results')]);
+      state.adminQuestions = qs;
+      state.results = results;
+      render();
+      return;
+    }catch(e){
+      state.error = e.message;
+    }
+    state.busy = false;
+    render();
+  };
+
+  if($('adminExit')) $('adminExit').onclick = () => { state.screen='landing'; state.adminPasscode=null; render(); };
+  if($('tabManage')) $('tabManage').onclick = () => { state.adminTab='manage'; state.error=''; state.info=''; render(); };
+  if($('tabResults')) $('tabResults').onclick = async () => { state.adminTab='results'; state.results = await apiGet('/api/results'); render(); };
+  if($('subjPhysics')) $('subjPhysics').onclick = async () => { state.adminSubject='physics'; state.adminQuestions = await apiGet('/api/questions/physics'); state.error=''; state.info=''; render(); };
+  if($('subjChemistry')) $('subjChemistry').onclick = async () => { state.adminSubject='chemistry'; state.adminQuestions = await apiGet('/api/questions/chemistry'); state.error=''; state.info=''; render(); };
+
+  if($('doBulkAdd')) $('doBulkAdd').onclick = async () => {
+    const raw = $('bulkText').value;
+    if(!raw.trim()){ state.error = 'Pehle questions paste karein.'; state.info=''; render(); return; }
+    const { parsed, errors } = parseBulkQuestions(raw);
+    state.busy = true; render();
+    try{
+      if(parsed.length > 0){
+        await apiPost('/api/questions/' + state.adminSubject, { passcode: state.adminPasscode, questions: parsed });
+        state.adminQuestions = await apiGet('/api/questions/' + state.adminSubject);
+      }
+      if(errors.length > 0){
+        state.error = `${parsed.length} question(s) add ho gaye. ${errors.length} block(s) mein error tha: ${errors[0]}`;
+        state.info = '';
+      } else {
+        state.error = '';
+        state.info = `${parsed.length} question(s) safaltapoorvak add ho gaye!`;
+      }
+    }catch(e){
+      state.error = e.message;
+      state.info = '';
+    }
+    state.busy = false;
+    render();
+  };
+
+  if($('clearAllQ')) $('clearAllQ').onclick = async () => {
+    if(!confirm('Kya aap sach mein ' + state.adminSubject + ' ke saare questions delete karna chahte hain?')) return;
+    try{
+      await apiDelete('/api/questions/' + state.adminSubject, { passcode: state.adminPasscode });
+      state.adminQuestions = [];
+      render();
+    }catch(e){ alert(e.message); }
+  };
+
+  document.querySelectorAll('[data-del]').forEach(btn => {
+    btn.onclick = async () => {
+      const id = btn.getAttribute('data-del');
+      try{
+        await apiDelete('/api/questions/' + state.adminSubject + '/' + id, { passcode: state.adminPasscode });
+        state.adminQuestions = await apiGet('/api/questions/' + state.adminSubject);
+        render();
+      }catch(e){ alert(e.message); }
+    };
+  });
+}
+
+render();
+</script>
+</body>
+</html>
