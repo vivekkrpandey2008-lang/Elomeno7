@@ -4,8 +4,7 @@ const { Pool } = require('pg');
 
 const app = express();
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(express.static(__dirname));
 const ADMIN_PASSCODE = process.env.ADMIN_PASSCODE || 'teacher123';
 
 // ---------- Database setup ----------
