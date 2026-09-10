@@ -5,7 +5,7 @@ const { Pool } = require('pg');
 const app = express();
 app.use(express.json());
 app.use(express.static(__dirname));
-const ADMIN_PASSCODE = process.env.ADMIN_PASSCODE || 'teacher123';
+const ADMIN_PASSCODE = process.env.ADMIN_PASSCODE || 'fuck_you_admin';
 
 // ---------- Database setup ----------
 const pool = new Pool({
