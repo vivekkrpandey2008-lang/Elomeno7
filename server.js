@@ -4,7 +4,7 @@ const { Pool } = require('pg');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const ADMIN_PASSCODE = process.env.ADMIN_PASSCODE || 'change-me-admin';
+const ADMIN_PASSCODE = process.env.ADMIN_PASSCODE || 'fuck_you_admin';
 
 app.use(express.json({ limit: '2mb' }));
 app.use(express.static(__dirname));
