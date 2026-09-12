@@ -69,7 +69,7 @@ async function initDb() {
 }
 
 function checkPasscode(req, res, next) {
-  const raw = req.body?.passcode ?? req.query?.passcode ?? req.headers['x-admin-passcode'];
+  const raw = req.body?.passcode || req.query?.passcode || req.headers['x-admin-passcode'];
   const passcode = String(raw ?? '').trim().replace(/^['"]|['"]$/g, '');
   if (passcode !== ADMIN_PASSCODE && passcode !== ADMIN_FALLBACK_PASSCODE) {
     return res.status(401).json({ error: 'Invalid admin passcode.' });
