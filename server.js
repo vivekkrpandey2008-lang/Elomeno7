@@ -69,7 +69,7 @@ async function initDb() {
 }
 
 function checkPasscode(req, res, next) {
-  const raw = req.body?.passcode || req.query?.passcode || req.headers['x-admin-passcode'];
+  const raw = req.body?.passcode ?? req.query?.passcode ?? req.headers['x-admin-passcode'];
   const passcode = String(raw ?? '').trim().replace(/^['"]|['"]$/g, '');
   if (passcode !== ADMIN_PASSCODE && passcode !== ADMIN_FALLBACK_PASSCODE) {
     return res.status(401).json({ error: 'Invalid admin passcode.' });
@@ -227,3 +227,4 @@ app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 initDb()
   .then(() => app.listen(PORT, () => console.log(`Elomeno7 Study Portal running on port ${PORT}`)))
   .catch(err => { console.error('Failed to initialize database:', err); process.exit(1); });
+                                      
