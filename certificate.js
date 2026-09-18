@@ -66,10 +66,11 @@
 
   .watermark{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-size:10.5px;letter-spacing:2px;color:#999;text-transform:uppercase}
 
-  @page{ size:landscape; margin:0 }
+  @page{ size:11in 8.5in; margin:0 }
   @media print{
-    html,body{height:100%;background:#fff;padding:0;margin:0}
-    .frame{width:100%;height:100vh;aspect-ratio:auto;box-shadow:none}
+    html,body{width:11in;height:8.5in;background:#fff;padding:0;margin:0;overflow:hidden}
+    .frame{width:11in;height:8.5in;aspect-ratio:auto;box-shadow:none;overflow:hidden;page-break-inside:avoid;break-inside:avoid}
+    .inner{page-break-inside:avoid;break-inside:avoid}
   }
 </style></head>
 <body>
