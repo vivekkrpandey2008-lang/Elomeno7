@@ -31,13 +31,15 @@
   body{margin:0;background:#dcdcdc;font-family:'EB Garamond',Georgia,serif;display:grid;place-items:center;min-height:100vh;padding:26px}
 
   .frame{
-    width:min(920px,100%);aspect-ratio:4/3;position:relative;padding:32px;
+    width:10.5in;height:7.5in;position:relative;padding:18px;
     background: repeating-linear-gradient(45deg,#8f8f8f 0px,#8f8f8f 6px,#e9e9e9 6px,#e9e9e9 12px,#bcbcbc 12px,#bcbcbc 18px,#f4f4f4 18px,#f4f4f4 24px);
     box-shadow:0 10px 40px rgba(0,0,0,.25);
+    overflow:hidden;
   }
   .inner{
-    position:relative;height:100%;border:2px solid #1a1a1a;padding:26px 40px;
+    position:relative;height:100%;border:2px solid #1a1a1a;padding:14px 30px;
     display:flex;flex-direction:column;align-items:center;text-align:center;
+    overflow:hidden;
     background:
       repeating-linear-gradient(45deg,rgba(0,0,0,.05) 0px,rgba(0,0,0,.05) 1px,transparent 1px,transparent 5px),
       repeating-linear-gradient(-45deg,rgba(0,0,0,.05) 0px,rgba(0,0,0,.05) 1px,transparent 1px,transparent 5px),
@@ -45,31 +47,31 @@
   }
   .inner:before{content:"";position:absolute;inset:6px;border:1px solid #1a1a1a;pointer-events:none}
 
-  .title{font-family:'UnifrakturMaguntia',cursive;font-size:52px;color:#111;line-height:1;margin:22px 0 6px;letter-spacing:1px}
-  .certifies{font-family:'Tangerine',cursive;font-weight:700;font-size:34px;color:#222;margin:2px 0 18px}
+  .title{font-family:'UnifrakturMaguntia',cursive;font-size:38px;color:#111;line-height:1;margin:12px 0 4px;letter-spacing:1px}
+  .certifies{font-family:'Tangerine',cursive;font-weight:700;font-size:24px;color:#222;margin:2px 0 10px}
 
-  .line{border-bottom:1px solid #111;min-width:520px;max-width:80%;margin:14px auto 4px;padding-bottom:4px}
-  .name{font-family:'Tangerine',cursive;font-weight:700;font-size:46px;color:#111}
-  .caption{font-size:16px;color:#222;margin:8px 0}
-  .subject-line{font-family:'EB Garamond',serif;font-weight:600;font-size:20px;color:#111}
+  .line{border-bottom:1px solid #111;min-width:420px;max-width:80%;margin:8px auto 3px;padding-bottom:3px}
+  .name{font-family:'Tangerine',cursive;font-weight:700;font-size:32px;color:#111}
+  .caption{font-size:12px;color:#222;margin:5px 0}
+  .subject-line{font-family:'EB Garamond',serif;font-weight:600;font-size:15px;color:#111}
 
   .spacer{flex:1}
 
-  .footer-row{display:flex;justify-content:space-between;width:100%;margin-top:8px;font-size:15px;color:#111;gap:20px}
-  .given{border-bottom:1px solid #111;padding:0 6px 3px;min-width:230px;font-weight:600}
-  .datebit{border-bottom:1px solid #111;padding:0 8px 2px;font-weight:600}
+  .footer-row{display:flex;justify-content:space-between;width:100%;margin-top:6px;font-size:12px;color:#111;gap:20px}
+  .given{border-bottom:1px solid #111;padding:0 6px 2px;min-width:180px;font-weight:600}
+  .datebit{border-bottom:1px solid #111;padding:0 6px 2px;font-weight:600}
 
-  .sig-row{display:flex;justify-content:flex-end;width:100%;margin-top:30px}
+  .sig-row{display:flex;justify-content:flex-end;width:100%;margin-top:16px}
   .sig-block{text-align:center}
-  .sig-name{font-family:'Tangerine',cursive;font-weight:700;font-size:32px;color:#1a3f9c;border-bottom:1px solid #111;padding:0 30px 2px}
-  .sig-title{font-size:13px;letter-spacing:1px;color:#333;margin-top:5px;text-transform:uppercase}
+  .sig-name{font-family:'Tangerine',cursive;font-weight:700;font-size:24px;color:#1a3f9c;border-bottom:1px solid #111;padding:0 24px 2px}
+  .sig-title{font-size:11px;letter-spacing:1px;color:#333;margin-top:3px;text-transform:uppercase}
 
-  .watermark{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-size:10.5px;letter-spacing:2px;color:#999;text-transform:uppercase}
+  .watermark{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:9px;letter-spacing:2px;color:#999;text-transform:uppercase}
 
   @page{ size:11in 8.5in; margin:0 }
   @media print{
     html,body{width:11in;height:8.5in;background:#fff;padding:0;margin:0;overflow:hidden}
-    .frame{width:11in;height:8.5in;aspect-ratio:auto;box-shadow:none;overflow:hidden;page-break-inside:avoid;break-inside:avoid}
+    .frame{width:11in;height:8.5in;box-shadow:none;page-break-inside:avoid;break-inside:avoid}
     .inner{page-break-inside:avoid;break-inside:avoid}
   }
 </style></head>
@@ -102,7 +104,16 @@
       <div class="watermark">Elomeno7 Study Portal</div>
     </div>
   </div>
-  <script>window.onload = () => setTimeout(() => window.print(), 300);</script>
+  <script>
+    window.onload = () => {
+      const go = () => setTimeout(() => window.print(), 150);
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(go).catch(go);
+      } else {
+        setTimeout(go, 500);
+      }
+    };
+  </script>
 </body></html>`);
     win.document.close();
   }
